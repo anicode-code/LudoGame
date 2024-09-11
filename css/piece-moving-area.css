@@ -1,0 +1,58 @@
+.piece-moving-area {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    /* pointer-events: none; */
+}
+
+.each-ludo-piece {
+    position: absolute;
+    left: 163px;
+    top:24px;
+    width: 6.67%;
+    height: 6.67%;
+}
+
+.piece-A {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid blue;
+}
+
+.piece-A>.rotate, .piece-A>.border, .piece-A>.border>.piece-color {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+}
+.piece-A>.rotate{
+    animation: myRotate 4s linear infinite normal;
+    width: 80%;
+    height: 80%;
+    border: 2px dashed black;
+    outline: 2px dashed white;
+}
+
+.piece-A>.border {
+    width: 50%;
+    height: 50%;
+    background-color: white;
+    box-shadow: 0px 0px 2px 0px black;
+    border: 1px solid black;
+}
+
+.piece-A>.border>.piece-color {
+    width: 90%;
+    height: 90%;
+    /* background-color: red; */
+    box-shadow: inset 0px 0px 4px 0px black;
+    border: 1px solid black;
+}
+
+@keyframes myRotate {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

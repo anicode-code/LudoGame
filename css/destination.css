@@ -1,0 +1,29 @@
+.destination-container {
+    width: 20%;
+    height: 20%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+.each-destination-box {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: calc(100% / sqrt(2));
+    height: calc(100% / sqrt(2));
+}
+.each-destination-box.top {
+    transform: translate(-50%, -50%) rotate(45deg) translate(-50%, -50%);
+}
+.each-destination-box.right {
+    transform: translate(-50%, -50%) rotate(135deg) translate(-50%, -50%);
+}
+.each-destination-box.bottom {
+    transform: translate(-50%, -50%) rotate(-135deg) translate(-50%, -50%);
+}
+.each-destination-box.left {
+    transform: translate(-50%, -50%) rotate(-45deg) translate(-50%, -50%);
+}

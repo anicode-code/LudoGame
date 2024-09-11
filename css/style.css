@@ -1,0 +1,70 @@
+:root {
+    --w: 412px;
+    --w: 800px;
+    --h: 758px;
+
+    /* --w: 100svmin;
+    --h: 100svmin; */
+
+    --per: 0.9;
+
+    --ludo-side: calc(min(var(--w), var(--h)) * var(--per));
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid black;
+    height: 100svh;
+}
+
+.c1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: var(--w);
+    height: var(--h);
+    
+    border: 1px solid rgb(255, 0, 0);
+}
+
+.ludo-container {
+    position: relative;
+    width: var(--ludo-side);
+    height: var(--ludo-side);
+    border: 1px solid black;
+}
+
+.test {
+    position: absolute;
+    left: 222px;
+    top: 219px;
+    
+    /* border: 2px solid black; */
+    width: 42.5px;
+    height: 42.5px;
+    pointer-events: none;
+    z-index: 10;
+}
+.color-1 {
+    background-color: red;
+}
+.color-2 {
+    background-color: green;
+}
+.color-3 {
+    background-color: yellow;
+}
+.color-4 {
+    background-color: rgb(0, 60, 255);
+}

@@ -1,0 +1,76 @@
+.home-boxes {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    /* pointer-events: none; */
+}
+
+.home-box-outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+
+    width: 40%;
+    height: 40%;
+    /* pointer-events: all; */
+}
+
+.home-box-outer.t-l {
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid black;
+}
+.home-box-outer.t-r {
+    top: 0;
+    right: 0;
+    border-left: 1px solid black;
+}
+.home-box-outer.b-r {
+    bottom: 0;
+    right: 0;
+    border-top: 1px solid black;
+}
+.home-box-outer.b-l {
+    bottom: 0;
+    left: 0;
+    border-right: 1px solid black;
+}
+
+.home-box-inner-1 {
+    width: 66.67%;
+    height: 66.67%;
+    background-color: white;
+}
+
+.home-box-inner-2 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+}
+
+.piece-container {
+    --from-center: 80%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    
+    width: 30%;
+    height: 30%;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+.piece-container.t-l {
+    transform: translate(calc(-50% - var(--from-center)), calc(-50% - var(--from-center)));
+}
+.piece-container.t-r {
+    transform: translate(calc(-50% + var(--from-center)), calc(-50% - var(--from-center)));
+}
+.piece-container.b-r {
+    transform: translate(calc(-50% + var(--from-center)), calc(-50% + var(--from-center)));
+}
+.piece-container.b-l {
+    transform: translate(calc(-50% - var(--from-center)), calc(-50% + var(--from-center)));
+}

@@ -1,0 +1,27 @@
+.destination-container {
+    width: 20%;
+    height: 20%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+.destination-container-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: calc(100% * 1.4142135623730951);
+    height: calc(100% * 1.4142135623730951);
+}
+
+.each-destination-box {
+    width: 50%;
+    height: 50%;
+}
