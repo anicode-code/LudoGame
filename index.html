@@ -4,17 +4,81 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/img/favicon_io/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/img/favicon_io/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/img/favicon_io/favicon-16x16.png"
+        />
+        <link rel="icon" type="image/png" href="/img/favicon_io/favicon.ico" />
+        <link rel="manifest" href="/img/favicon_io/site.webmanifest" />
         <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/dice-container.css" />
         <link rel="stylesheet" href="css/home-boxes.css" />
         <link rel="stylesheet" href="css/path.css" />
         <link rel="stylesheet" href="css/destination.css" />
         <link rel="stylesheet" href="css/piece-moving-area.css" />
+        <script src="js/brainLudoPieces.js" defer></script>
+        <script src="js/currentState.js" defer></script>
+        <script src="js/LudoPieces.js" defer></script>
+        <script src="js/pieceTypes.js" defer></script>
+        <script src="js/eventListeners.js" defer></script>
+        <script src="js/script.js" defer></script>
         <title>Ludo</title>
     </head>
     <body>
         <div class="container">
-            <div class="test"></div>
-            <div class="c1">
+            <!-- <div class="test"></div> -->
+            <div class="components">
+                <div class="all-dice-parent-container">
+                    <div class="dice-container top-left">
+                        <div class="dice-container-2">
+                            <img src="./img/required/2.png" alt="dice-container" />
+                            <div class="dice-container-3 left">
+                                <div class="piece-representation-box"></div>
+                                <div class="dice-roller-box"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dice-container top-right">
+                        <div class="dice-container-2">
+                            <img src="./img/required/1.png" alt="dice-container" />
+                            <div class="dice-container-3 right">
+                                <div class="piece-representation-box"></div>
+                                <div class="dice-roller-box"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dice-container bottom-right">
+                        <div class="dice-container-2">
+                            <img src="./img/required/1.png" alt="dice-container" />
+                            <div class="dice-container-3 right">
+                                <div class="piece-representation-box"></div>
+                                <div class="dice-roller-box"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dice-container bottom-left">
+                        <div class="dice-container-2">
+                            <img src="./img/required/2.png" alt="dice-container" />
+                            <div class="dice-container-3 left">
+                                <div class="piece-representation-box"></div>
+                                <div class="dice-roller-box"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="ludo-container">
                     <div class="paths">
                         <div class="path left">
@@ -23,9 +87,17 @@
                             <div class="each-path-step"></div>
                             <div class="each-path-step"></div>
                             <div class="each-path-step color-1"></div>
-                            <div class="each-path-step color-1"></div>
-                            <div class="each-path-step color-4">
-                                <img class="star" src="./img/star.png" />
+                            <div class="each-path-step color-1">
+                                <img
+                                    class="star"
+                                    src="./img/required/star.png"
+                                />
+                            </div>
+                            <div class="each-path-step">
+                                <img
+                                    class="star"
+                                    src="./img/required/star.png"
+                                />
                             </div>
                             <div class="each-path-step color-1"></div>
                             <div class="each-path-step"></div>
@@ -45,9 +117,17 @@
                             <div class="each-path-step"></div>
                             <div class="each-path-step"></div>
                             <div class="each-path-step color-2"></div>
-                            <div class="each-path-step color-2"></div>
-                            <div class="each-path-step color-1">
-                                <img class="star" src="./img/star.png" />
+                            <div class="each-path-step color-2">
+                                <img
+                                    class="star"
+                                    src="./img/required/star.png"
+                                />
+                            </div>
+                            <div class="each-path-step">
+                                <img
+                                    class="star"
+                                    src="./img/required/star.png"
+                                />
                             </div>
                             <div class="each-path-step color-2"></div>
                             <div class="each-path-step"></div>
@@ -67,9 +147,17 @@
                             <div class="each-path-step"></div>
                             <div class="each-path-step"></div>
                             <div class="each-path-step color-3"></div>
-                            <div class="each-path-step color-3"></div>
-                            <div class="each-path-step color-2">
-                                <img class="star" src="./img/star.png" />
+                            <div class="each-path-step color-3">
+                                <img
+                                    class="star"
+                                    src="./img/required/star.png"
+                                />
+                            </div>
+                            <div class="each-path-step">
+                                <img
+                                    class="star"
+                                    src="./img/required/star.png"
+                                />
                             </div>
                             <div class="each-path-step color-3"></div>
                             <div class="each-path-step"></div>
@@ -89,9 +177,17 @@
                             <div class="each-path-step"></div>
                             <div class="each-path-step"></div>
                             <div class="each-path-step color-4"></div>
-                            <div class="each-path-step color-4"></div>
-                            <div class="each-path-step color-3">
-                                <img class="star" src="./img/star.png" />
+                            <div class="each-path-step color-4">
+                                <img
+                                    class="star"
+                                    src="./img/required/star.png"
+                                />
+                            </div>
+                            <div class="each-path-step">
+                                <img
+                                    class="star"
+                                    src="./img/required/star.png"
+                                />
                             </div>
                             <div class="each-path-step color-4"></div>
                             <div class="each-path-step"></div>
@@ -197,7 +293,16 @@
                             ></div>
                         </div>
                     </div>
-                    <div class="piece-moving-area"></div>
+                    <div class="piece-moving-area">
+                        <!-- <div class="each-ludo-piece">
+                            <div class="piece-A">
+                                <div class="rotate"></div>
+                                <div class="border">
+                                    <div class="piece-color"></div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
                 </div>
             </div>
         </div>
