@@ -20,53 +20,89 @@ class LudoPiece {
         this.currPos = -1;
     }
 
-    placeInside(size = 1) {
+    placeInside(size = 1, parentObj = {}) {
+        let {
+            startXPerc: parStartXPerc,
+            endXPerc: parEndXPerc,
+            startYPerc: parStartYPerc,
+            endYPerc: parEndYPerc,
+        } = parentObj;
+
+        parStartXPerc = parStartXPerc || 0;
+        parEndXPerc = parEndXPerc || 0;
+        parStartYPerc = parStartYPerc || 0;
+        parEndYPerc = parEndYPerc || 0;
+        
         const {
-            left: x1,
-            top: y1,
-            right: x2,
-            bottom: y2,
+            left: parentStartX,
+            top: parentStartY,
+            right: parentEndX,
+            bottom: parentEndY,
         } = this.parent.getBoundingClientRect();
-        const { left: x3, top: y3 } = pieceMovingArea.getBoundingClientRect();
-        this.width = (x2 - x1) * size;
-        this.height = (y2 - y1) * size;
-        this.left = x1 - x3 + (x2 - x1) / 2 - this.width / 2;
-        this.top = y1 - y3 + (y2 - y1) / 2 - this.height / 2;
+
+        const { left: containerX, top: containerY } =
+            pieceMovingArea.getBoundingClientRect();
+
+        const modParentStartX =
+            parentStartX + (parentEndX - parentStartX) * parStartXPerc;
+        const modParentStartY =
+            parentStartY + (parentEndY - parentStartY) * parStartYPerc;
+        const modParentEndX =
+            parentStartX + (parentEndX - parentStartX) * (1 - parEndXPerc);
+        const modParentEndY =
+            parentStartY + (parentEndY - parentStartY) * (1 - parEndYPerc);
+
+        const dimension = Math.min(
+            (modParentEndX - modParentStartX) * size,
+            (modParentEndY - modParentStartY) * size
+        );
+
+        this.width = dimension;
+        this.height = dimension;
+        this.left =
+            modParentStartX -
+            containerX +
+            (modParentEndX - modParentStartX) / 2 -
+            this.width / 2;
+        this.top =
+            modParentStartY -
+            containerY +
+            (modParentEndY - modParentStartY) / 2 -
+            this.height / 2;
     }
 
     #isCapture(cellNum) {
         if (cellNum !== undefined) {
-            if (currentState.isBoundaryCell(cellNum)) {
+            if (currentState.isBoundaryCell(cellNum) && starCellNums[cellNum] !== true) {
                 const futureCellNumPiecesArr = currentState.boundary[cellNum];
                 for (let i = 0; i < futureCellNumPiecesArr.length; i++) {
                     const pieceObj = futureCellNumPiecesArr[i];
                     if (pieceObj.player !== this.player) {
                         futureCellNumPiecesArr.splice(i, 1);
                         this.moveReverse(pieceObj);
-                        break;
+                        return true;
                     }
                 }
             }
         }
+        return false;
     }
 
     moveReverse(pieceObj) {
         const link = { 0: "t-l", 1: "t-r", 2: "b-l", 3: "b-r" };
         for (let i = 0; i < pieceObj.currPos + 1; i++) {
-            console.log(pieceObj.currPos);
             setTimeout(() => {
                 pieceObj.currPos--;
                 if (pieceObj.currPos === -1) {
                     pieceObj.parent = document.querySelector(
-                        `.home-box-outer.color-${pieceObj.player} .piece-container.${
-                            link[pieceObj.pieceNum]
-                        }`
+                        `.home-box-outer.color-${
+                            pieceObj.player
+                        } .piece-container.${link[pieceObj.pieceNum]}`
                     );
                 } else {
                     pieceObj.parent =
-                    eachPathSteps[pieceObj.path[pieceObj.currPos]];
+                        eachPathSteps[pieceObj.path[pieceObj.currPos]];
                 }
-                    console.log(pieceObj.parent);
                 pieceObj.placeInside();
                 pieceObj.updateDom();
             }, 100 * (i + 1));
@@ -78,8 +114,6 @@ class LudoPiece {
         if (originalSteps === 6 && this.currPos === -1) {
             modifiedSteps = 1;
         }
-
-        console.log(originalSteps);
 
         // inserting into the currentState Boundary
         if (this.currPos > -1) {
@@ -99,27 +133,68 @@ class LudoPiece {
         // adding to the futurePos
         const futureCellNum = this.path[this.currPos + modifiedSteps];
         if (futureCellNum !== undefined) {
-            currentState.boundary[futureCellNum].push(this);
+            if (currentState.isBoundaryCell(futureCellNum)) {
+                currentState.boundary[futureCellNum].push(this);
+            }
         }
 
         for (let i = 0; i < modifiedSteps; i++) {
             setTimeout(() => {
                 this.currPos++;
-                this.parent = eachPathSteps[this.path[this.currPos]];
-                this.placeInside();
+                let hasReachedDestination = false;
+                if (this.currPos === 56) {
+                    const linkPlayerToPosition = {
+                        1: "left",
+                        2: "top",
+                        3: "right",
+                        4: "bottom",
+                    };
+                    this.parent = document.querySelector(
+                        `.each-destination-box.${
+                            linkPlayerToPosition[this.player]
+                        }`
+                    );
+                    
+                    const parentObj = {};
+                    switch (this.player) {
+                        case 1:
+                            parentObj.startXPerc = 0.5;
+                            parentObj.endXPerc = 0.1;
+                            break;
+                        case 2:
+                            parentObj.startYPerc = 0.5;
+                            parentObj.endYPerc = 0.1;
+                            break;
+                        case 3:
+                            parentObj.endXPerc = 0.5;
+                            parentObj.startXPerc = 0.1;
+                            break;
+                        case 4:
+                            parentObj.endYPerc = 0.5;
+                            parentObj.startYPerc = 0.1;
+                            break;
+                    }
+                    this.placeInside(1, parentObj);
+                    hasReachedDestination = true;
+                } else {
+                    this.parent = eachPathSteps[this.path[this.currPos]];
+                    this.placeInside();
+                }
                 this.updateDom();
 
                 if (i === modifiedSteps - 1) {
-                    // capture logic
-                    this.#isCapture(futureCellNum);
-
-                    if (originalSteps !== 6) {
-                        currentState.update();
-                    } else {
+                    const hasCaptured = this.#isCapture(futureCellNum);
+                    if (
+                        originalSteps === 6 ||
+                        hasCaptured ||
+                        hasReachedDestination
+                    ) {
                         currentState.isDiceRolled = false;
+                    } else {
+                        currentState.update();
                     }
                 }
-            }, 400 * (i + 1));
+            }, 250 * (i + 1));
         }
     }
 

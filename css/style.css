@@ -54,6 +54,7 @@ img {
 
     border: 2px solid black;
     width: 114.79437255859375px;
+    width: 103px;
     height: 114.79440307617188px;
     pointer-events: none;
     z-index: 10;
@@ -72,13 +73,6 @@ img {
     background-color: rgb(0, 60, 255);
 }
 
-
-/* tobedeleted */
-.tempLudo {
-    width: 6%;
-    aspect-ratio: 1;
-    background-color: #fff;
-    border: 1px solid black;
-    position: absolute;
-    font-size: 200%;
+.come-on-top {
+    z-index: 1;
 }

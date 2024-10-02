@@ -17,12 +17,47 @@ class CurrentState {
     }
 
     update() {
+        function addClass(elements, className) {
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                element.classList.add(className);
+            }
+        }
+
+        function removeClass(elements, className) {
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                element.classList.remove(className);
+            }
+        }
         setTimeout(() => {
             diceRoller[this.player - 1].innerText = "";
-            this.player = (this.player % 4) + 1;
+            removeClass(
+                eachPieceObject
+                    .filter((val) => val.player === this.player)
+                    .map((val) => val.ludoPieceEle),
+                "come-on-top"
+            );
+            const prevPlayerNum = this.player;
+            do {
+                this.player = (this.player % 4) + 1;
+                if (prevPlayerNum === this.player) {
+                    break;
+                }
+            } while (
+                eachPieceObject
+                    .filter((val) => val.player === this.player)
+                    .filter((val) => val.currPos === 56).length === 4
+            );
+            addClass(
+                eachPieceObject
+                    .filter((val) => val.player === this.player)
+                    .map((val) => val.ludoPieceEle),
+                "come-on-top"
+            );
             diceRoller[this.player - 1].innerText = this.randomNumber;
             this.isDiceRolled = false;
-        }, 1000);
+        }, 600);
     }
 
     getHighlightedPiecesArray() {

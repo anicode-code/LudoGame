@@ -2,9 +2,7 @@ function addEventListeners() {
     for (let i = 0; i < eachPieceObject.length; i++) {
         const each = eachPieceObject[i];
         each.ludoPieceEle.addEventListener("click", () => {
-            console.log(each.isHighlight);
             if (each.isHighlight) {
-                console.log("I am clickable");
                 each.move(currentState.randomNumber);
                 currentState.unSetHighlightAllCurrent();
             }
@@ -19,9 +17,18 @@ function addEventListeners() {
                 diceRoller[i].innerText = diceNumber;
                 currentState.randomNumber = diceNumber;
                 BrainLudoPieces.highlightValid(diceNumber);
-                const highlightPieceArr = currentState.getHighlightedPiecesArray();
+                const highlightPieceArr =
+                    currentState.getHighlightedPiecesArray();
                 if (highlightPieceArr.length === 0) {
                     currentState.update();
+                } else if (highlightPieceArr.length === 1) {
+                    const index = highlightPieceArr[0];
+                    const currPlayerPieces = eachPieceObject.filter(
+                        (val) => val.player === currentState.player
+                    );
+                    currPlayerPieces[index].ludoPieceEle.dispatchEvent(
+                        new Event("click")
+                    );
                 }
             }
         });

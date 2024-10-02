@@ -21,11 +21,14 @@ class BrainLudoPieces {
             // if the piece is on the boundary
             else if (currPos >= 0 && currPos <= 50) {
                 for (let i = 0; i < diceNumber; i++) {
-                    const nextPos = currPos + 1 + i;
+                    const nextPos = currPos + i + 1;
                     const nextCellNumber =
                         pathOfDiffPlayer[pieceObj.player - 1][nextPos];
                     if (currentState.isBoundaryCell(nextCellNumber)) {
-                        if (currentState.boundary[nextCellNumber].length > 1) {
+                        if (
+                            currentState.boundary[nextCellNumber].length > 1 &&
+                            starCellNums[nextCellNumber] !== true
+                        ) {
                             currentState.setHighlight(pieceObj, false);
                             return;
                         }
@@ -45,7 +48,7 @@ class BrainLudoPieces {
                 }
             }
         }
-        
+
         const currPlayerPieces = eachPieceObject.filter(
             (val) => val.player === currentState.player
         );

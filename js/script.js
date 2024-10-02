@@ -16,9 +16,26 @@ const boundaryCellNums = [
     48, 45, 42, 39, 36, 37, 38, 41, 44, 47, 50, 53, 69, 66, 63, 60, 57, 54, 55,
     56, 59, 62, 65, 68, 71, 15, 12, 9, 6, 3, 0, 1, 2,
 ];
+
+const starCellNums = {
+    5: true,
+    6: true,
+    23: true,
+    24: true,
+    41: true,
+    42: true,
+    59: true,
+    60: true,
+};
+
 const currentState = new CurrentState();
 const pathOfDiffPlayer = [];
 const eachPieceObject = [];
+
+//tobedeleted
+// for (let i = 0; i < eachPathSteps.length; i++) {
+//     eachPathSteps[i].innerText = i;
+// }
 
 // creating object code
 
@@ -51,11 +68,12 @@ function initialDiceNumber() {
 function fixFontSize() {
     for (let i = 0; i < diceRoller.length; i++) {
         const dim = diceRoller[i].getBoundingClientRect();
-        diceRoller[i].style.fontSize = Math.min(dim.width, dim.height) * 0.85 + "px";
+        diceRoller[i].style.fontSize =
+            Math.min(dim.width, dim.height) * 0.85 + "px";
     }
 }
 
-function updateCreatedPieceInfo(isFirst=true) {
+function updateCreatedPieceInfo(isFirst = true) {
     const len = homePieceContainers.length;
     for (let i = 0; i < len; i++) {
         if (isFirst) {

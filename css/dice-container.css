@@ -1,6 +1,8 @@
 .dice-container {
     position: absolute;
     border: 1px solid black;
+    cursor: pointer;
+    user-select: none;
 }
 
 .dice-container.top-left {
